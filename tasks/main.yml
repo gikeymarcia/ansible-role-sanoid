@@ -80,7 +80,7 @@
 
 - name: Enable sanoid.timer
   ansible.builtin.systemd_service:
-    name: sanoid-prune.service
+    name: sanoid.timer
     enabled: true
     state: started
 
