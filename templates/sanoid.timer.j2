@@ -1,0 +1,12 @@
+# created by gikeymarcia.sanoid ansible role
+[Unit]
+Description=Run Sanoid Every 15 Minutes
+Requires=sanoid.service
+
+[Timer]
+OnCalendar=*:0/{{ sanoid_run_each_x_minutes }}
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+# vim: ft=systemd :

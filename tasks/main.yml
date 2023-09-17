@@ -43,12 +43,31 @@
     owner: root
     group: root
 
-- name: Install a copy of the default config (for reference)
+- name: Install a copy of the default sanoid config (for reference)
   ansible.builtin.copy:
     remote_src: true
     src: /opt/sanoid/sanoid.defaults.conf
     dest: /etc/sanoid/sanoid.defaults.conf
     mode: "0444"
+
+- name: Install systemd unit files
+  ansible.builtin.copy:
+    src: "files/{{ item }}"
+    dest: "/etc/systemd/system/{{ item }}"
+    mode: "0644"
+    owner: root
+    group: root
+  with_items:
+    - sanoid.service
+    - sanoid-prune.service
+
+- name: Install systemd timer unit
+  ansible.builtin.template:
+    src: templates/sanoid.timer.j2
+    dest: /etc/systemd/system/sanoid.timer
+    mode: "0644"
+    owner: root
+    group: root
 
 ...
 # vim: ft=yaml.ansible :
