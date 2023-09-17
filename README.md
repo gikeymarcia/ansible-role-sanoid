@@ -14,6 +14,7 @@ Role Variables
 
 ```yaml
 sanoid_version: "v2.2.0"
+sanoid_run_each_x_minutes: 15
 ```
 
 Dependencies
