@@ -1,2 +1,25 @@
 # tasks file for gikeymarcia.sanoid
+# https://github.com/jimsalterjrs/sanoid/blob/master/INSTALL.md#debianubuntu
 ---
+
+- name: Install dependent packages.
+  ansible.builtin.apt:
+    name:
+      - debhelper
+      - libcapture-tiny-perl
+      - libconfig-inifiles-perl
+      - pv
+      - lzop
+      - mbuffer
+      - build-essential
+      - git
+    state: present
+
+- name: Clone sanoid/syncoid source files from git.
+  ansible.builtin.git:
+    repo: "https://github.com/jimsalterjrs/sanoid.git"
+    dest: /opt/sanoid
+    version: "{{ sanoid_version }}"
+
+...
+# vim: ft=yaml.ansible :

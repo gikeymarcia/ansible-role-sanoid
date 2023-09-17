@@ -1,7 +1,8 @@
 gikeymarcia.sanoid
 =========
 
-A brief description of the role goes here.
+Deploy [sanoid](https://github.com/jimsalterjrs/sanoid) for ZFS snapshot
+management and Debian-based systems (Debian/Ubuntu/Proxmox)
 
 Requirements
 ------------
@@ -11,7 +12,9 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yaml
+sanoid_version: "v2.2.0"
+```
 
 Dependencies
 ------------
