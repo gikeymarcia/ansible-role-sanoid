@@ -35,5 +35,20 @@
     - findoid
     - sleepymutex
 
+- name: Create directory for sanoid configuration
+  ansible.builtin.file:
+    path: /etc/sanoid
+    state: directory
+    mode: "0755"
+    owner: root
+    group: root
+
+- name: Install a copy of the default config (for reference)
+  ansible.builtin.copy:
+    remote_src: true
+    src: /opt/sanoid/sanoid.defaults.conf
+    dest: /etc/sanoid/sanoid.defaults.conf
+    mode: "0444"
+
 ...
 # vim: ft=yaml.ansible :
