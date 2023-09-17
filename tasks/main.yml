@@ -21,5 +21,19 @@
     dest: /opt/sanoid
     version: "{{ sanoid_version }}"
 
+- name: Install sanoid-suite of tools to PATH
+  ansible.builtin.copy:
+    src: "/opt/sanoid/{{ item }}"
+    dest: "/usr/local/sbin/{{ item }}"
+    remote_src: true
+    owner: root
+    group: root
+    mode: "0755"
+  with_items:
+    - sanoid
+    - syncoid
+    - findoid
+    - sleepymutex
+
 ...
 # vim: ft=yaml.ansible :
