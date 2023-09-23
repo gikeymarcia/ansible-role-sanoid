@@ -84,5 +84,15 @@
     enabled: true
     state: started
 
+- name: "Install sanoid.conf from template"
+  ansible.builtin.template:
+    src: templates/sanoid.conf.j2
+    dest: /etc/sanoid.conf
+    mode: "0640"
+    owner: root
+    group: root
+  when:
+    - sanoid_templates | default(false)
+
 ...
 # vim: ft=yaml.ansible :

@@ -4,6 +4,8 @@ gikeymarcia.sanoid
 Deploy [sanoid](https://github.com/jimsalterjrs/sanoid) for ZFS snapshot
 management and Debian-based systems (Debian/Ubuntu/Proxmox)
 
+WORK IN PROGRESS; STILL TESTING; NOT READY FOR USE!!
+
 Requirements
 ------------
 
@@ -15,7 +17,33 @@ Role Variables
 ```yaml
 sanoid_version: "v2.2.0"
 sanoid_run_each_x_minutes: 15
+sanoid_templates:
+  - name: docker
+    frequently: 3
+    hourly: 48
+    daily: 30
+    monthly: 6
+  - name: archive
+    daily: 5
+    weekly: 6
+    monthly: 12
+    yearly: 3
 ```
+
+First variable is the version to pull from github
+
+Second variable determies how regulary the systemd timer should run per hour.
+For example, a value of 4 means to run every 4th minute of each hour. This
+timer runs sanoid to check if snapshots need to be taken/pruned. When using
+high 'frequently' values you should adjust this value down so more snapshots
+can be taken.
+
+Each of your snapshot templates are defined in `sanoid_templates`. Above are a
+few example values but the `defaults/main.yaml` has all of the templtes Jim
+Salter defines in the sample sanoid.conf file on github.
+
+If you want to extend these values I recommend copying the default version of
+the variable and adding/editing your own templates as playbook variables.
 
 Dependencies
 ------------

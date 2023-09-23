@@ -2,4 +2,48 @@
 ---
 sanoid_version: "v2.2.0"
 sanoid_run_each_x_minutes: 15
+sanoid_templates:
+  - name: demo
+    daily: 60
+  - name: production
+    frequently: 0
+    hourly: 36
+    daily: 30
+    monthly: 3
+    yearly: 0
+    autosnap: "yes"
+    autoprune: "yes"
+  - name: backup
+    autoprune: "yes"
+    frequently: 0
+    hourly: 30
+    daily: 90
+    monthly: 12
+    yearly: 0
+    # don't take new snapshots - snapshots on backup
+    # datasets are replicated in from source, not generated locally
+    autosnap: "no"
+    # monitor hourlies and dailies, but don't war or crit until they're over
+    # 48h old, since replication is typically daily only
+    hourly_warn: 2880
+    hourly_crit: 3600
+    daily_warn: 48
+    daily_crit: 60
+    monitor: "yes"
+  - name: hotspare
+    autoprune: "yes"
+    frequently: 0
+    hourly: 30
+    daily: 7
+    monthly: 3
+    yearly: 0
+    autosnap: "no"
+    hourly_warn: "4h"
+    hourly_crit: "6h"
+    daily_warn: "2d"
+    daily_crit: "4d"
+  - name: ignore
+    autoprune: "no"
+    autosnap: "no"
+    monitor: "no"
 ...

@@ -1,6 +1,6 @@
 # created by gikeymarcia.sanoid ansible role
 [Unit]
-Description=Run Sanoid Every 15 Minutes
+Description=Run Sanoid Every {{ sanoid_run_each_x_minutes }}  Minutes
 Requires=sanoid.service
 
 [Timer]
