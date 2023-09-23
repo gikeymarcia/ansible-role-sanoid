@@ -39,43 +39,43 @@
 
 {% for template in sanoid_templates %}
 [template_{{ template.name }}]
-{% if template.autosnap %}
+{% if template.autosnap is defined %}
 	autosnap = {{ template.autosnap }}
 {% endif %}
-{% if template.autoprune %}
+{% if template.autoprune is defined %}
 	autoprune = {{ template.autoprune }}
 {% endif %}
-{% if template.frequently %}
+{% if template.frequently is defined %}
 	frequently = {{ template.frequently }}
 {% endif %}
-{% if template.hourly %}
+{% if template.hourly is defined %}
 	hourly = {{ template.hourly }}
 {% endif %}
-{% if template.daily %}
+{% if template.daily is defined %}
 	daily = {{ template.daily }}
 {% endif %}
-{% if template.weekly %}
+{% if template.weekly is defined %}
 	weekly = {{ template.weekly }}
 {% endif %}
-{% if template.monthly %}
+{% if template.monthly is defined %}
 	monthly = {{ template.monthly }}
 {% endif %}
-{% if template.yearly %}
+{% if template.yearly is defined %}
 	yearly = {{ template.yearly }}
 {% endif %}
-{% if template.monitor %}
+{% if template.monitor is defined %}
 	monitor = {{ template.monitor }}
 {% endif %}
-{% if template.hourly_warn %}
+{% if template.hourly_warn is defined %}
 	hourly_warn = {{ template.hourly_warn }}
 {% endif %}
-{% if template.hourly_crit %}
+{% if template.hourly_crit is defined %}
 	hourly_crit = {{ template.hourly_crit }}
 {% endif %}
-{% if template.daily_warn %}
+{% if template.daily_warn is defined %}
 	daily_warn = {{ template.daily_warn }}
 {% endif %}
-{% if template.daily_crit %}
+{% if template.daily_crit is defined %}
 	daily_crit = {{ template.daily_crit }}
 {% endif %}
 {% endfor %}
