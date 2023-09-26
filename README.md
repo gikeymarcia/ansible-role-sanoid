@@ -15,8 +15,27 @@ Role Variables
 --------------
 
 ```yaml
+# defaults
 sanoid_version: "v2.2.0"
 sanoid_run_each_x_minutes: 15
+```
+
+First variable is the version to pull from github
+
+Second variable determies how regulary the systemd timer should run per hour.
+For example, a value of 4 means to run every 4th minute of each hour. This
+timer runs sanoid to check if snapshots need to be taken/pruned. When using
+high 'frequently' values you should adjust this value down so more snapshots
+can be taken.
+
+Each of your snapshot templates are defined in the `sanoid_templates`
+varialble. Below are a few example values but the `defaults/main.yaml` has all
+of the templtes Jim Salter defines in the sample sanoid.conf file on github.
+
+If you want to extend these values I recommend copying the default version of
+the variable and adding/editing your own templates as playbook variables.
+
+```
 sanoid_templates:
   - name: docker
     frequently: 3
@@ -28,22 +47,19 @@ sanoid_templates:
     weekly: 6
     monthly: 12
     yearly: 3
+sanoid_backup_modules:
+  - name: zpoolname/datasetORzvol
+    template: archive
+    daily: 3
 ```
 
-First variable is the version to pull from github
+The 'sanoid_backup_modules' define which datasets/zvols are going to be managed
+by sanoid and which template to use as a snapshot policy. You can define
+multiple template by comma separating them. For example,  'docker,archive'
+would process those templates in order and apply the end result.
 
-Second variable determies how regulary the systemd timer should run per hour.
-For example, a value of 4 means to run every 4th minute of each hour. This
-timer runs sanoid to check if snapshots need to be taken/pruned. When using
-high 'frequently' values you should adjust this value down so more snapshots
-can be taken.
-
-Each of your snapshot templates are defined in `sanoid_templates`. Above are a
-few example values but the `defaults/main.yaml` has all of the templtes Jim
-Salter defines in the sample sanoid.conf file on github.
-
-If you want to extend these values I recommend copying the default version of
-the variable and adding/editing your own templates as playbook variables.
+You can also override any given value by passing as a key value pair. Above the
+'zpoolname/datasetORzvol' dataset will have 3 daily snapshots.
 
 Dependencies
 ------------

@@ -31,8 +31,60 @@
 # 	use_template = production
 # 	recursive = zfs
 
+{% for backup in sanoid_backup_modules %}
+[{{ backup.name }}]
+	# backup Module Values
+{% if backup.template is defined %}
+	use_template = {{ backup.template }}
+{% endif %}
+{% if backup.recursive is defined %}
+	recursive = {{ backup.recursive }}
+{% endif %}
+{% if backup.process_children_only is defined %}
+	process_children_only = {{ backup.process_children_only }}
+{% endif %}
+	# backup override values
+{% if backup.autosnap is defined %}
+	autosnap = {{ backup.autosnap }}
+{% endif %}
+{% if backup.autoprune is defined %}
+	autoprune = {{ backup.autoprune }}
+{% endif %}
+{% if backup.frequently is defined %}
+	frequently = {{ backup.frequently }}
+{% endif %}
+{% if backup.hourly is defined %}
+	hourly = {{ backup.hourly }}
+{% endif %}
+{% if backup.daily is defined %}
+	daily = {{ backup.daily }}
+{% endif %}
+{% if backup.weekly is defined %}
+	weekly = {{ backup.weekly }}
+{% endif %}
+{% if backup.monthly is defined %}
+	monthly = {{ backup.monthly }}
+{% endif %}
+{% if backup.yearly is defined %}
+	yearly = {{ backup.yearly }}
+{% endif %}
+{% if backup.monitor is defined %}
+	monitor = {{ backup.monitor }}
+{% endif %}
+{% if backup.hourly_warn is defined %}
+	hourly_warn = {{ backup.hourly_warn }}
+{% endif %}
+{% if backup.hourly_crit is defined %}
+	hourly_crit = {{ backup.hourly_crit }}
+{% endif %}
+{% if backup.daily_warn is defined %}
+	daily_warn = {{ backup.daily_warn }}
+{% endif %}
+{% if backup.daily_crit is defined %}
+	daily_crit = {{ backup.daily_crit }}
+{% endif %}
 
-
+{% endfor %}
 #############################
 # templates below this line #
 #############################
@@ -80,8 +132,6 @@
 {% endif %}
 
 {% endfor %}
-
-
 # NOT YET IMPLEMENTED IN ANSIBLE
 # [template_scripts]
 # 	### information about the snapshot will be supplied as environment variables,
