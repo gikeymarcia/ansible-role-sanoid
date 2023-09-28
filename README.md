@@ -2,7 +2,9 @@ gikeymarcia.sanoid
 =========
 
 Deploy [sanoid](https://github.com/jimsalterjrs/sanoid) for ZFS snapshot
-management and Debian-based systems (Debian/Ubuntu/Proxmox)
+management and Debian-based systems (Debian/Ubuntu/Proxmox). Also installs the
+other tools in the repo: `syncoid` (magical), `findoid`, and `sleepymutex` to
+`/usr/local/sbin`
 
 Requirements
 ------------
@@ -61,29 +63,60 @@ would process those templates in order and apply the end result.
 You can also override any given value by passing as a key value pair. Above the
 'zpoolname/datasetORzvol' dataset will have 3 daily snapshots.
 
-Learn more about the configuration values on [sanoid github]https://github.com/jimsalterjrs/sanoid/blob/master/sanoid.conf). Not all of the available values have been added to 
-the template. If you need anything not here add it to the role and send a pull
-request. I may revisit this in the future but for now the role does all I need.
+Learn more about the configuration values on [sanoid
+github]https://github.com/jimsalterjrs/sanoid/blob/master/sanoid.conf). Not all
+of the available values have been added to the template. If you need anything
+not here add it to the role and send a pull request. I may revisit this in the
+future but for now the role does all I need.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yaml
+- name: Setup sanoid to auto-snapshot your datasets
+  hosts: all
+  become: true
 
-    - hosts: servers
-      roles:
-         - role: gikeymarcia.sanoid
-           vars:
-             sanoid_backup_modules:
-               - name: tank/vms
-                 template: production
-                 recursive: yes
-         
+  roles:
+    - role: gikeymarcia.sanoid
+      vars:
+        sanoid_backup_modules:
+          - name: tank/vms
+            template: vm_live
+            recursive: 'yes'
+            process_children_only: 'yes'
+          - name: tank/media
+            template: media
+            recursive: 'yes'
+        sanoid_templates:
+          - name: vm_live
+            hourly: 48
+            daily: 5
+            autosnap: "yes"
+            autoprune: "yes"
+          - name: media
+            hourly: 6
+            daily: 3
+            weekly: 2
+            monthly: 3
+            yearly: 1
+            autosnap: "yes"
+            autoprune: "yes"
+```
+
+Above I define two different templates and apply them to two different
+datasets.After running this on a node the sanoid systemd unit will be enabled
+and configured to check every 15 minutes for new snapshots to take or prune
+snapshots (based on the applied template).
+
+You can dive deeper but this is 99% of what most need to take proper care of
+our ZFS snapshots.
+
 License
 -------
 
