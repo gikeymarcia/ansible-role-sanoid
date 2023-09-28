@@ -1,10 +1,7 @@
 gikeymarcia.sanoid
 =========
 
-Deploy [sanoid](https://github.com/jimsalterjrs/sanoid) for ZFS snapshot
-management and Debian-based systems (Debian/Ubuntu/Proxmox). Also installs the
-other tools in the repo: `syncoid` (magical), `findoid`, and `sleepymutex` to
-`/usr/local/sbin`
+Deploy [sanoid](https://github.com/jimsalterjrs/sanoid) for ZFS snapshot management and Debian-based systems (Debian/Ubuntu/Proxmox). Also installs the other tools in the repo: `syncoid` (magical), `findoid`, and `sleepymutex` to `/usr/local/sbin`
 
 Requirements
 ------------
@@ -29,8 +26,11 @@ high 'frequently' values you should adjust this value down so more snapshots
 can be taken.
 
 Each of your snapshot templates are defined in the `sanoid_templates`
-varialble. Below are a few example values but the `defaults/main.yaml` has all
-of the templates Jim Salter defines in the [sample sanoid.conf](https://github.com/jimsalterjrs/sanoid/blob/master/sanoid.conf) on GitHub.
+varialble. Below are a few example values but the
+[`defaults/main.yaml`](https://github.com/gikeymarcia/ansible-role-sanoid/blob/master/defaults/main.yml)
+has all of the templates Jim Salter defines in the [sample
+sanoid.conf](https://github.com/jimsalterjrs/sanoid/blob/master/sanoid.conf) on
+GitHub.
 
 If you want to extend these values I recommend copying the default version of
 the variable and adding/editing your own templates as playbook variables.
@@ -48,11 +48,14 @@ sanoid_templates:
     monthly: 12
     yearly: 3
 sanoid_backup_modules:
+  - name: zpoolname/docker
+    template: docker
+    recursive: yes
+    process_children_only: yes
   - name: zpoolname/datasetORzvol
     template: archive
     daily: 3
     recursive: yes
-    process_children_only: yes
 ```
 
 The 'sanoid_backup_modules' define which datasets/zvols are going to be managed
@@ -63,11 +66,7 @@ would process those templates in order and apply the end result.
 You can also override any given value by passing as a key value pair. Above the
 'zpoolname/datasetORzvol' dataset will have 3 daily snapshots.
 
-Learn more about the configuration values on [sanoid
-github]https://github.com/jimsalterjrs/sanoid/blob/master/sanoid.conf). Not all
-of the available values have been added to the template. If you need anything
-not here add it to the role and send a pull request. I may revisit this in the
-future but for now the role does all I need.
+Learn more about the configuration values on [sanoid github](https://github.com/jimsalterjrs/sanoid/blob/master/sanoid.conf). Not all of the available values have been added to the [template](https://github.com/gikeymarcia/ansible-role-sanoid/blob/master/templates/sanoid.conf.j2). If you need anything not here add it to the role and send a pull request. I may revisit this in the future but for now the role does all I need.
 
 Dependencies
 ------------
