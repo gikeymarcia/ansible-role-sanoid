@@ -30,8 +30,8 @@ galaxy_info:
   platforms:
   - name: Debian
     versions:
-      - "11"
-      - "12"
+      - "bullseye"
+      - "bookworm"
   - name: Ubuntu
     versions:
       - "jammy"
