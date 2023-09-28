@@ -34,7 +34,7 @@ galaxy_info:
       - "12"
   - name: Ubuntu
     versions:
-      - "22.04"
+      - "jammy"
   # - name: Fedora
   #   versions:
   #   - all
