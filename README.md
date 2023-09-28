@@ -1,7 +1,10 @@
 gikeymarcia.sanoid
 =========
 
-Deploy [sanoid](https://github.com/jimsalterjrs/sanoid) for ZFS snapshot management and Debian-based systems (Debian/Ubuntu/Proxmox). Also installs the other tools in the repo: `syncoid` (magical), `findoid`, and `sleepymutex` to `/usr/local/sbin`
+Deploy [sanoid](https://github.com/jimsalterjrs/sanoid) for ZFS snapshot
+management and Debian-based systems (Debian/Ubuntu/Proxmox). Also installs the
+other tools in the repo: `syncoid` (magical), `findoid`, and `sleepymutex` to
+`/usr/local/sbin`
 
 Requirements
 ------------
@@ -66,7 +69,12 @@ would process those templates in order and apply the end result.
 You can also override any given value by passing as a key value pair. Above the
 'zpoolname/datasetORzvol' dataset will have 3 daily snapshots.
 
-Learn more about the configuration values on [sanoid github](https://github.com/jimsalterjrs/sanoid/blob/master/sanoid.conf). Not all of the available values have been added to the [template](https://github.com/gikeymarcia/ansible-role-sanoid/blob/master/templates/sanoid.conf.j2). If you need anything not here add it to the role and send a pull request. I may revisit this in the future but for now the role does all I need.
+Learn more about the configuration values on [sanoid
+github](https://github.com/jimsalterjrs/sanoid/blob/master/sanoid.conf). Not
+all of the available values have been added to the
+[template](https://github.com/gikeymarcia/ansible-role-sanoid/blob/master/templates/sanoid.conf.j2).
+If you need anything not here add it to the role and send a pull request. I may
+revisit this in the future but for now the role does all I need.
 
 Dependencies
 ------------
