@@ -84,6 +84,16 @@
     enabled: true
     state: started
 
+- name: "Show sanoid_templates"
+  ansible.builtin.debug:
+    msg: "{{ sanoid_templates }}"
+    verbosity: 2
+
+- name: "Show sanoid_backup_modules"
+  ansible.builtin.debug:
+    msg: "{{ sanoid_backup_modules }}"
+    verbosity: 2
+
 - name: "Install sanoid.conf from template"
   ansible.builtin.template:
     src: templates/sanoid.conf.j2
@@ -93,6 +103,7 @@
     group: root
   when:
     - sanoid_templates | default(false)
+    - sanoid_backup_modules | default(false)
 
 ...
 # vim: ft=yaml.ansible :
